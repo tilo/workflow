@@ -28,11 +28,11 @@ Gem::Specification.new do |gem|
   ]
 
   gem.required_ruby_version = '>= 2.7'
-  gem.add_development_dependency 'rdoc',          '~> 6.1'
-  gem.add_development_dependency 'bundler',       '~> 2.0'
-  gem.add_development_dependency 'mocha',         '~> 1.8'
-  gem.add_development_dependency 'rake',          '~> 12.3'
-  gem.add_development_dependency 'minitest',      '~> 5.11'
+  gem.add_development_dependency 'rdoc',          '~> 6.4'
+  gem.add_development_dependency 'bundler',       '~> 2.3'
+  gem.add_development_dependency 'mocha',         '~> 2.2'
+  gem.add_development_dependency 'rake',          '~> 13.1'
+  gem.add_development_dependency 'minitest',      '~> 5.21'
   gem.add_development_dependency 'ruby-graphviz', '~> 1.2'
 
 end
