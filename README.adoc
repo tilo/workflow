@@ -407,6 +407,8 @@ When calling a `device.can_<fire_event>?` check, or attempting a `device.<event>
 * If an `:if` check is present, proceed if it evaluates to true, or drop to the next event.
 * If you've run out of events to check (eg. `battery_level == 0`), then the transition isn't possible.
 
+You can also pass additional arguments, which can be evaluated by :if methods or procs. See examples in
+[conditionals_test.rb](test/conditionals_test.rb#L45)
 
 ### Advanced transition hooks
 
@@ -513,6 +515,10 @@ end
 Changelog
 ---------
 
+=== New in the version 3.1.0
+
+* gh-227 allow event arguments to be taken into account when selecting the event
+
 === New in the version 3.0.0
 
 * gh-228 Support for Ruby 3 keyword args, provided by @agirling
@@ -552,7 +558,7 @@ integration with https://github.com/activeadmin/activeadmin[ActiveAdmin].
 
 Author: Vladimir Dobriakov, <https://infrastructure-as-code.de>
 
-Copyright (c) 2010-2022 Vladimir Dobriakov and Contributors
+Copyright (c) 2010-2024 Vladimir Dobriakov and Contributors
 
 Copyright (c) 2008-2009 Vodafone
 
