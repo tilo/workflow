@@ -65,8 +65,8 @@ module Workflow
               process_event!(event_name, *args, **kwargs)
             end
 
-            define_method "can_#{event_name}?" do
-              return !!current_state.events.first_applicable(event_name, self)
+            define_method "can_#{event_name}?".to_sym do |*args, **kwargs|
+              return !!current_state.events.first_applicable(event_name, self, args)
             end
           end
         end
