@@ -48,7 +48,7 @@ class ConditionalsTest < Minitest::Test
       # define more advanced workflow, where event methods allow arguments
       workflow do
         state :off do
-          # turn_on accepts additional argument `power_adapter`
+          # turn_on and transition filters accepts additional argument `power_adapter`
           event :turn_on, :transitions_to => :on, :if => :sufficient_battery_level?
           event :turn_on, :transitions_to => :low_battery # otherwise
         end
@@ -77,7 +77,7 @@ class ConditionalsTest < Minitest::Test
       # define more advanced workflow, where event methods allow arguments
       workflow do
         state :off do
-          # turn_on accepts additional argument `power_adapter`
+          # turn_on and transition filters accepts additional argument `power_adapter`
           event :turn_on, :transitions_to => :on, :if => proc { |obj, power_adapter| power_adapter || obj.battery > 10 }
           event :turn_on, :transitions_to => :low_battery # otherwise
         end

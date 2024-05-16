@@ -408,7 +408,7 @@ When calling a `device.can_<fire_event>?` check, or attempting a `device.<event>
 * If you've run out of events to check (eg. `battery_level == 0`), then the transition isn't possible.
 
 You can also pass additional arguments, which can be evaluated by :if methods or procs. See examples in
-[conditionals_test.rb](test/conditionals_test.rb#L45)
+link:test/conditionals_test.rb#L45[conditionals_test.rb]
 
 ### Advanced transition hooks
 
@@ -517,13 +517,13 @@ Changelog
 
 === New in the version 3.1.0
 
-* gh-227 allow event arguments to be taken into account when selecting the event
+* link:https://github.com/geekq/workflow/pull/227[#227] allow event arguments to be taken into account when selecting the event
 
 === New in the version 3.0.0
 
-* gh-228 Support for Ruby 3 keyword args, provided by @agirling
+* link:https://github.com/geekq/workflow/pull/228[#228] Support for Ruby 3 keyword args, provided by @agirling
 * retire Ruby 2.6 since it has reached end of live; please use workflow 2.x, if you still depend on that Ruby version
-* gh-229 Switch from travis CI to GihHub actions for continuous integration
+* link:https://github.com/geekq/workflow/pull/229[#229] Switch from travis CI to GihHub actions for continuous integration
 
 ### New in the versions 2.x
 
@@ -548,6 +548,11 @@ bundle install
 # run all the tests
 bundle exec rake test
 ```
+
+### Check list for you pull request
+
+* [ ] unit tests for the new behavior provided: new tests fail without you change, all tests succeed with your change
+* [ ] documentation update included
 
 ### Other 3rd party libraries
 
