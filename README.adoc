@@ -131,7 +131,7 @@ gem install workflow
 install the `activesupport` and `ruby-graphviz` gems.
 
 Versions up to and including 1.0.0 are also available as a single file download -
-[lib/workflow.rb file](https://github.com/geekq/workflow/blob/v1.0.0/lib/workflow.rb).
+link:https://github.com/geekq/workflow/blob/v1.0.0/lib/workflow.rb[lib/workflow.rb file].
 
 
 === Examples
@@ -345,43 +345,6 @@ favorite database.
 Advanced usage
 --------------
 
-### Accessing your workflow specification
-
-You can easily reflect on workflow specification programmatically - for
-the whole class or for the current object. Examples:
-
-```rb
-article2.current_state.events # lists possible events from here
-article2.current_state.events[:reject].transitions_to # => :rejected
-
-Article.workflow_spec.states.keys
-#=> [:rejected, :awaiting_review, :being_reviewed, :accepted, :new]
-
-Article.workflow_spec.state_names
-#=> [:rejected, :awaiting_review, :being_reviewed, :accepted, :new]
-
-# list all events for all states
-Article.workflow_spec.states.values.collect &:events
-```
-
-You can also store and later retrieve additional meta data for every
-state and every event:
-
-```rb
-class MyProcess
-  include Workflow
-  workflow do
-    state :main, :meta => {:importance => 8}
-    state :supplemental, :meta => {:importance => 1}
-  end
-end
-puts MyProcess.workflow_spec.states[:supplemental].meta[:importance] # => 1
-```
-
-The workflow library itself uses this feature to tweak the graphical
-representation of the workflow. See below.
-
-
 ### Conditional event transitions
 
 Conditions can be a "method name symbol" with a corresponding instance method, a `proc` or `lambda` which are added to events, like so:
@@ -494,6 +457,49 @@ The whole event sequence is as follows:
     * after_transition
 
 
+### Accessing your workflow specification
+
+You can easily reflect on workflow specification programmatically - for
+the whole class or for the current object. Examples:
+
+```rb
+article2.current_state.events # lists possible events from here
+article2.current_state.events[:reject].transitions_to # => :rejected
+
+Article.workflow_spec.states.keys
+#=> [:rejected, :awaiting_review, :being_reviewed, :accepted, :new]
+
+Article.workflow_spec.state_names
+#=> [:rejected, :awaiting_review, :being_reviewed, :accepted, :new]
+
+# list all events for all states
+Article.workflow_spec.states.values.collect &:events
+```
+
+You can also store and later retrieve additional meta data for every
+state and every event:
+
+```rb
+class MyProcess
+  include Workflow
+  workflow do
+    state :main, :meta => {:importance => 8}
+    state :supplemental, :meta => {:importance => 1}
+  end
+end
+puts MyProcess.workflow_spec.states[:supplemental].meta[:importance] # => 1
+```
+
+The workflow library itself uses this feature to tweak the graphical
+representation of the workflow. See below.
+
+
+### Compose workflow definition with `include`
+
+In case you have very extensive workflow definition or would like to reuse
+workflow definition for different classes, you can include parts like in
+the link:https://github.com/geekq/workflow/blob/develop/test/main_test.rb#L95-L110[`including a child workflow definition` example].
+
 Documenting with diagrams
 -------------------------
 
@@ -517,7 +523,8 @@ Changelog
 
 === New in the version 3.1.0
 
-* link:https://github.com/geekq/workflow/pull/227[#227] allow event arguments to be taken into account when selecting the event
+* link:https://github.com/geekq/workflow/pull/227[#227] Allow event arguments to be taken into account when selecting the event
+* link:https://github.com/geekq/workflow/pull/232[#232] Add ability to include partial workflow definitions for composability
 
 === New in the version 3.0.0
 
