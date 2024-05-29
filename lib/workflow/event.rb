@@ -18,8 +18,18 @@ module Workflow
     def condition_applicable?(object, event_arguments)
       if condition
         if condition.is_a?(Symbol)
-          object.send(condition, *event_arguments)
+          m = object.method(condition)
+          # Conditionals can now take the arguments of the trasition action into account #227
+          # But in case the current conditional wants to ignore any event_argument on its decision -
+          # does not accept parameters, also support that.
+          if m.arity == 0 # no additional parameters accepted
+            object.send(condition)
+          else
+            object.send(condition, *event_arguments)
+          end
         else
+          # since blocks can ignore extra arguments without raising an error in Ruby,
+          # no `if` is needed - compare with `arity` switch in above methods handling
           condition.call(object, *event_arguments)
         end
       else

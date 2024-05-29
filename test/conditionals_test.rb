@@ -42,7 +42,7 @@ class ConditionalsTest < Minitest::Test
     assert device.on?
   end
 
-  test 'gh-227 allow event arguments in conditions - test with proc' do
+  test 'gh-227 allow event arguments in conditions - test with a method' do
     c = Class.new do
       include Workflow
       # define more advanced workflow, where event methods allow arguments
@@ -52,7 +52,10 @@ class ConditionalsTest < Minitest::Test
           event :turn_on, :transitions_to => :on, :if => :sufficient_battery_level?
           event :turn_on, :transitions_to => :low_battery # otherwise
         end
-        state :on
+        state :on do
+          event :check, :transitions_to => :low_battery, :if => :check_low_battery?
+          event :check, :transitions_to => :on # stay in on state otherwise
+        end
         state :low_battery
       end
       attr_reader :battery
@@ -60,8 +63,12 @@ class ConditionalsTest < Minitest::Test
         @battery = battery
       end
 
-      def sufficient_battery_level?(power_adapter=false)
+      def sufficient_battery_level?(power_adapter)
         power_adapter || @battery > 10
+      end
+
+      def check_low_battery?() # supports no arguments, lets test below, what happens if the action uses addtional args
+        # 'in check_low_battery? method'
       end
     end
 
@@ -69,9 +76,12 @@ class ConditionalsTest < Minitest::Test
     device = c.new 5
     device.turn_on!(true) # case with event arguments to be taken into account
     assert device.on?
+    device.check!('foo') # the conditional in the definition above does not support arguments, but make it work
+    # by ignoring superfluous arguments for compatibility
+    assert device.on?
   end
 
-  test 'gh-227 allow event arguments in conditions - test with a method' do
+  test 'gh-227 allow event arguments in conditions - test with a proc' do
     c = Class.new do
       include Workflow
       # define more advanced workflow, where event methods allow arguments
@@ -81,7 +91,10 @@ class ConditionalsTest < Minitest::Test
           event :turn_on, :transitions_to => :on, :if => proc { |obj, power_adapter| power_adapter || obj.battery > 10 }
           event :turn_on, :transitions_to => :low_battery # otherwise
         end
-        state :on
+        state :on do
+          event :check, :transitions_to => :low_battery, :if => proc { |obj| return false }
+          event :check, :transitions_to => :on # stay in on state otherwise
+        end
         state :low_battery
       end
       attr_reader :battery
@@ -92,6 +105,9 @@ class ConditionalsTest < Minitest::Test
 
     device = c.new 5
     device.turn_on!(true) # case with event arguments to be taken into account
+    assert device.on?
+    device.check!('foo') # also ensure that if conditional in the definition above does not support arguments,
+    # it still works and just ignores superfluous arguments
     assert device.on?
   end
 
