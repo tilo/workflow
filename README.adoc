@@ -494,6 +494,12 @@ The workflow library itself uses this feature to tweak the graphical
 representation of the workflow. See below.
 
 
+### Defining workflow dynamically from JSON
+
+For an advance example please see
+link:https://github.com/geekq/workflow/blob/develop/test/workflow_from_json_test.rb[workflow_from_json_test.rb].
+
+
 ### Compose workflow definition with `include`
 
 In case you have very extensive workflow definition or would like to reuse
@@ -525,6 +531,7 @@ Changelog
 
 * link:https://github.com/geekq/workflow/pull/227[#227] Allow event arguments to be taken into account when selecting the event
 * link:https://github.com/geekq/workflow/pull/232[#232] Add ability to include partial workflow definitions for composability
+* link:https://github.com/geekq/workflow/pull/241[#241] Example for defining workflow dynamically from JSON
 
 === New in the version 3.0.0
 
