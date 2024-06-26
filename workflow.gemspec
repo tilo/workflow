@@ -18,6 +18,10 @@ Gem::Specification.new do |gem|
   gem.licenses      = ['MIT']
   gem.homepage      = "https://github.com/geekq/workflow"
 
+  gem.metadata["homepage_uri"] = gem.homepage
+  gem.metadata["source_code_uri"] = gem.homepage
+  gem.metadata["changelog_uri"] = "https://github.com/geekq/workflow/blob/develop/CHANGELOG.md"
+
   gem.files         = Dir['CHANGELOG.md', 'README.md', 'LICENSE', 'lib/**/*']
   gem.executables   = gem.files.grep(%r{^bin/}) { |f| File.basename(f) }
   gem.test_files    = gem.files.grep(%r{^(test|spec|features)/})
